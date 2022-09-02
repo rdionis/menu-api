@@ -26,3 +26,13 @@ Before creating any controllers and services, define the structure of the data y
 - **price**: (number) Price of the item in cents.
 - **description**: (string) Description of the item.
 - **image**: (string) URL pointing to the item's image.
+<br><br>
+
+
+
+---
+<br>
+
+Any other project can use the code of this service module as it's not tied to any particular framework. You use it in the next section to create your API controllers.
+
+It's worth mentioning that you could have used a TypeScript class to define and encapsulate the service logic; however, using functions makes testing your service module much easier.
