@@ -1,4 +1,4 @@
-// src/items/items.interface.ts
+// source/items/items.interface.ts
 
 import { Item } from './item.interface';
 

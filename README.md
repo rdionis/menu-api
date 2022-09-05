@@ -12,7 +12,7 @@ Let's briefly break down the options that ```ts-node-dev``` takes:
 
 - ```--transpile-only```: Use TypeScript's faster transpileModule (TS_NODE_TRANSPILE_ONLY).
 
-- src/index.ts: This is the application's entry file.
+- source/index.ts: This is the application's entry file.
 
 <br>
 <br>

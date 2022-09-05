@@ -31,7 +31,7 @@ itemsRouter.get('/', async (
     request: Request,
     response: Response) => {
         try {
-            const items: Item[] = awit ItemService.findAll();
+            const items: Item[] = await ItemService.findAll();
 
             response.status(200).send(items);
         } catch (e) {
@@ -46,20 +46,20 @@ itemsRouter.get('/:id', async (
     request: Request,
     response: Response
 ) => {
-        const id: number = parseInt(request.params.id, 10);
+    const id: number = parseInt(request.params.id, 10);
 
-        try {
-            const item: Item = await ItemService.find(id);
+    try {
+        const item: Item = await ItemService.find(id);
 
-            if (item) {
-                return response.status(200).send(item);
-            }
-
-            response.status(404).send('item not found')
-
-        } catch (e) {
-            response.status(500).send(e.message)
+        if (item) {
+            return response.status(200).send(item);
         }
+
+        response.status(404).send('item not found')
+
+    } catch (e) {
+        response.status(500).send(e.message)
+    }
 });
 
 // POST items
@@ -68,16 +68,16 @@ itemsRouter.post('/', async (
     request: Request,
     response: Response
 ) => {
-        try {
-            const item: BaseItem = request.body;
+    try {
+        const item: BaseItem = request.body;
 
-            const newItem = await ItemService.create(item);
+        const newItem = await ItemService.create(item);
 
 
-            response.status(201).json(newItem);
-        } catch (e) {
-            response.status(500).send(e.message);
-        }
+        response.status(201).json(newItem);
+    } catch (e) {
+        response.status(500).send(e.message);
+    }
 })
 
 // PUT items/:id
@@ -86,37 +86,37 @@ itemsRouter.put('/:id', async (
     request: Request,
     response: Response
 ) => {
-        const id: number = parseInt(request.params.id, 10);
+    const id: number = parseInt(request.params.id, 10);
 
-        try {
-            const itemUpdate: Item = request.body;
-            const existingItem: Item = await ItemService.find(id);
+    try {
+        const itemUpdate: Item = request.body;
+        const existingItem: Item = await ItemService.find(id);
 
-            if (existingItem) {
-                const updateItem = await ItemService.update(id, itemUpdate);
-                return response.status(200).json(updateItem);
-            }
-
-            const newItem = await ItemService.create(itemUpdate);
-
-            response.status(201).json(newItem);
-        } catch (e) {
-            response.status(500).send(e.message)
+        if (existingItem) {
+            const updateItem = await ItemService.update(id, itemUpdate);
+            return response.status(200).json(updateItem);
         }
+
+        const newItem = await ItemService.create(itemUpdate);
+
+        response.status(201).json(newItem);
+    } catch (e) {
+        response.status(500).send(e.message)
+    }
 });
 
 // DELETE items/:id
 
-itemsRouter.delete('/:id',async (
+itemsRouter.delete('/:id', async (
     request: Request,
     response: Response) => {
-    
-        try {
-            const id: number = parseInt(request.params.id, 10);
-            await ItemService.remove(id);
 
-            response.sendStatus(204);
-        } catch (e) {
-            response.status(500).send(e.message);
-        } 
+    try {
+        const id: number = parseInt(request.params.id, 10);
+        await ItemService.remove(id);
+
+        response.sendStatus(204);
+    } catch (e) {
+        response.status(500).send(e.message);
+    }
 });
