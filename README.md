@@ -52,3 +52,11 @@ For this application, you'll create endpoints to access an items resource to per
 |    |     |
 
 You can refer to the [WHATABYTE Menu API](https://github.com/auth0-blog/wab-docs) document to get more details on the signature, input, and response of each endpoint.
+<br/>
+<br/>
+
+
+# Implement Express Error Handling
+In Express, the order in which you declare and invoke middleware is essential for the architecture of your application. What should happen when a client makes a server request that doesn't match any server routes? The ideal behavior is to respond to the client with a 400 Bad Request status code.
+
+A good way to handle this is to create an HttpException class that helps you encapsulate errors related to HTTP requests and a middleware function to help you manage and issue the error response.
