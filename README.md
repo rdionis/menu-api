@@ -60,3 +60,11 @@ You can refer to the [WHATABYTE Menu API](https://github.com/auth0-blog/wab-docs
 In Express, the order in which you declare and invoke middleware is essential for the architecture of your application. What should happen when a client makes a server request that doesn't match any server routes? The ideal behavior is to respond to the client with a 400 Bad Request status code.
 
 A good way to handle this is to create an HttpException class that helps you encapsulate errors related to HTTP requests and a middleware function to help you manage and issue the error response.
+
+It's important to note that you must provide four arguments to identify a function as an error-handling middleware function in Express. You must specify the next object to maintain the error-handling signature even if you don't use it. Otherwise, Express interprets the next object as a regular middleware function, and it won't handle any errors.
+
+Now, also consider that the condition of a route not existing is not considered an error by Express when you use the framework to build a RESTful API. The REST architecture model uses HTTP status codes to respond to the client. A missing resource should not be an error but a condition you need to report to the client.
+
+As such, Express won't call your errorHandler middleware function if you request the employees resource, for example.
+
+To customize how your app responds to undefined resources, create an additional middleware function to catch 404 conditions. 
