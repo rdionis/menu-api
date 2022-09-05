@@ -11,8 +11,7 @@ import * as ItemService from './items.service';
 // Here, you are importing the express package and two of its internal type definitions, Request and Response, which you can use to type the callback functions of your Express controllers.
 
 import { BaseItem, Item } from "./item.interface";
-import { ServerStreamFileResponseOptionsWithError } from "http2";
-import { request } from "http";
+
 // Finally, you also import the Item and Items interfaces, which are necessary to type the return values from the ItemService functions.
 
 /**
@@ -29,14 +28,15 @@ export const itemsRouter = express.Router();
 
 itemsRouter.get('/', async (
     request: Request,
-    response: Response) => {
-        try {
-            const items: Item[] = await ItemService.findAll();
+    response: Response
+) => {
+    try {
+        const items: Item[] = await ItemService.findAll();
 
-            response.status(200).send(items);
-        } catch (e) {
-            response.status(500).send(e.message);
-        }
+        response.status(200).send(items);
+    } catch (e) {
+        response.status(500).send(e.message);
+    }
 });
 
 
