@@ -11,7 +11,6 @@ import * as ItemService from './items.service';
 // Here, you are importing the express package and two of its internal type definitions, Request and Response, which you can use to type the callback functions of your Express controllers.
 
 import { BaseItem, Item } from "./item.interface";
-
 // Finally, you also import the Item and Items interfaces, which are necessary to type the return values from the ItemService functions.
 
 /**
