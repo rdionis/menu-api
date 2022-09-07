@@ -23,7 +23,7 @@ export const itemsRouter = express.Router();
  * Controller Definitions
  */
 
-// GET items
+// GET ALL ITEMS items
 
 itemsRouter.get('/', async (
     request: Request,
@@ -33,13 +33,13 @@ itemsRouter.get('/', async (
         const items: Item[] = await ItemService.findAll();
 
         response.status(200).send(items);
-    } catch (e) {
-        response.status(500).send(e.message);
+    } catch (error) {
+        response.status(500).send(error.message);
     }
 });
 
 
-// GET items/:id
+// GET SPECIFIC ITEM items/:id
 
 itemsRouter.get('/:id', async (
     request: Request,
@@ -56,8 +56,8 @@ itemsRouter.get('/:id', async (
 
         response.status(404).send('item not found')
 
-    } catch (e) {
-        response.status(500).send(e.message)
+    } catch (error) {
+        response.status(500).send(error.message)
     }
 });
 
@@ -72,10 +72,12 @@ itemsRouter.post('/', async (
 
         const newItem = await ItemService.create(item);
 
-
         response.status(201).json(newItem);
-    } catch (e) {
-        response.status(500).send(e.message);
+    } catch (error) {
+        if (!(error instanceof Error)) {
+            throw new Error ('does not compute')
+        } 
+        response.status(500).send(error.message);
     }
 })
 
@@ -99,8 +101,8 @@ itemsRouter.put('/:id', async (
         const newItem = await ItemService.create(itemUpdate);
 
         response.status(201).json(newItem);
-    } catch (e) {
-        response.status(500).send(e.message)
+    } catch (error) {
+        response.status(500).send(error.message)
     }
 });
 
@@ -115,7 +117,7 @@ itemsRouter.delete('/:id', async (
         await ItemService.remove(id);
 
         response.sendStatus(204);
-    } catch (e) {
-        response.status(500).send(e.message);
+    } catch (error) {
+        response.status(500).send(error.message);
     }
 });
